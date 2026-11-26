@@ -23,82 +23,204 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../styles.css?v=9">
-  <script>localStorage.setItem('genesys-banca-customer', JSON.stringify({ id: '8e5fbca8-84d5-4561-927d-ead9b71d831c', firstName: 'Marco', lastName: 'Bianchi' }));</script>
+  <link rel="stylesheet" href="../styles.css?v=11">
   <script src="../app.js?v=5"></script>
 </head>
 <body class="pwa">
-  <main class="pwa-screen">
+  <main class="pwa-login" data-view="login" hidden>
+    <div class="pwa-login-brand">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-name">Genesys <strong>Banca</strong></span>
+    </div>
+    <h1>Bentornato</h1>
+    <p class="muted">Accedi per vedere conto, carte e avvisi.</p>
+    <form class="pwa-login-form" data-login-form>
+      <label>Codice titolare
+        <input name="codice" inputmode="numeric" autocomplete="username" value="334455">
+      </label>
+      <label>PIN
+        <input name="pin" type="password" inputmode="numeric" autocomplete="current-password" value="12345" maxlength="5">
+      </label>
+      <button class="btn btn-primary" type="submit">Accedi</button>
+      <button class="btn btn-ghost" type="button" data-face-id>Accedi con Face ID</button>
+    </form>
+    <p class="pwa-login-note">App dimostrativa: le credenziali sono già compilate per il cliente demo Marco Bianchi.</p>
+  </main>
+
+  <main class="pwa-screen" data-view="home" hidden>
     <div class="app-header">
       <span class="app-avatar">MB</span>
       <span>Ciao, <strong>Marco</strong></span>
-      <span class="app-bell" data-bell></span>
+      <button class="app-bell" data-bell data-go-tab="avvisi" aria-label="Avvisi"></button>
+      <button class="link link-plain pwa-logout" data-app-logout>Esci</button>
     </div>
 
-    <div class="app-balance">
-      <span>Saldo disponibile</span>
-      <strong>3.482<small>,15 €</small></strong>
-    </div>
-
-    <div class="app-card">
+    <div class="app-card pwa-debit">
       <span class="app-card-brand">Genesys <strong>Banca</strong></span>
+      <span class="pwa-debit-type">Carta di debito</span>
       <span class="app-card-chip"></span>
       <span class="app-card-number">•••• 4821</span>
     </div>
 
-    <div class="app-actions">
-      <span><i class="ic-send"></i>Invia</span>
-      <span><i class="ic-receive"></i>Ricevi</span>
-      <span><i class="ic-card"></i>Carte</span>
-      <span><i class="ic-home"></i>Mutuo</span>
+    <div class="pwa-stats">
+      <div><span>Saldo conto</span><strong>3.482,15 €</strong></div>
+      <div><span>Speso questo mese</span><strong data-month-total></strong></div>
     </div>
 
-    <section class="pwa-panel" data-push-panel>
-      <h2>Avvisi della banca</h2>
-      <div data-state="install" hidden>
-        <p>Per ricevere gli avvisi su iPhone aggiungi prima l'app alla schermata Home: tocca <strong>Condividi</strong> e poi <strong>Aggiungi alla schermata Home</strong>. Poi apri Genesys Banca dall'icona.</p>
+    <div class="pwa-tabs" role="tablist">
+      <button role="tab" data-tab="movimenti" aria-selected="true">Movimenti carta</button>
+      <button role="tab" data-tab="avvisi" aria-selected="false">Avvisi <span class="pwa-badge" data-inbox-count hidden></span></button>
+    </div>
+
+    <section class="pwa-panel" data-tab-panel="movimenti">
+      <div class="pwa-push-hint" data-push-hint hidden>
+        <span>Attiva gli avvisi per ricevere appuntamenti e conferme in tempo reale.</span>
+        <button class="link" data-go-tab="avvisi">Attiva</button>
       </div>
-      <div data-state="unsupported" hidden>
-        <p>Questo browser non supporta le notifiche. Prova con Chrome, Edge o Safari aggiornati.</p>
-      </div>
-      <div data-state="ask" hidden>
-        <p>Ricevi in tempo reale gli appuntamenti con il consulente, con l'orario e il codice per riconoscerci.</p>
-        <button class="btn btn-primary" data-enable-push>Attiva notifiche</button>
-      </div>
-      <div data-state="denied" hidden>
-        <p>Le notifiche sono bloccate. Riattivale dalle impostazioni del dispositivo per Genesys Banca.</p>
-      </div>
-      <div data-state="active" hidden>
-        <p class="pwa-ok">Notifiche attive su questo dispositivo.</p>
-        <button class="link" data-test-push>Invia un avviso di prova</button>
-      </div>
-      <p class="pwa-error" data-push-error hidden></p>
+      <div data-movements></div>
     </section>
 
-    <section class="pwa-panel">
-      <h2>I tuoi avvisi</h2>
-      <ul class="pwa-inbox" data-inbox></ul>
-      <p class="muted" data-inbox-empty>Nessun avviso per ora.</p>
+    <section data-tab-panel="avvisi" hidden>
+      <div class="pwa-panel">
+        <h2>Avvisi della banca</h2>
+        <div data-state="install" hidden>
+          <p>Per ricevere gli avvisi su iPhone aggiungi prima l'app alla schermata Home: tocca <strong>Condividi</strong> e poi <strong>Aggiungi alla schermata Home</strong>. Poi apri Genesys Banca dall'icona.</p>
+        </div>
+        <div data-state="unsupported" hidden>
+          <p>Questo browser non supporta le notifiche. Prova con Chrome, Edge o Safari aggiornati.</p>
+        </div>
+        <div data-state="ask" hidden>
+          <p>Ricevi in tempo reale gli appuntamenti con il consulente, con l'orario e il codice per riconoscerci.</p>
+          <button class="btn btn-primary" data-enable-push>Attiva notifiche</button>
+        </div>
+        <div data-state="denied" hidden>
+          <p>Le notifiche sono bloccate. Riattivale dalle impostazioni del dispositivo per Genesys Banca.</p>
+        </div>
+        <div data-state="active" hidden>
+          <p class="pwa-ok">Notifiche attive su questo dispositivo.</p>
+          <button class="link" data-test-push>Invia un avviso di prova</button>
+        </div>
+        <p class="pwa-error" data-push-error hidden></p>
+      </div>
+      <div class="pwa-panel">
+        <h2>I tuoi avvisi</h2>
+        <ul class="pwa-inbox" data-inbox></ul>
+        <p class="muted" data-inbox-empty>Nessun avviso per ora.</p>
+      </div>
     </section>
   </main>
 
   <script>
     var PUSH_API = 'https://genesys-banca-push.paolomanzotti.workers.dev';
-    var CUSTOMER_ID = '8e5fbca8-84d5-4561-927d-ead9b71d831c';
+    var SESSION_KEY = 'genesys-banca-app-session';
+
+    // Debit card movements, relative to today so the demo always looks current.
+    var MOVEMENTS = [
+      { days: 0, time: '18:42', merchant: 'Esselunga', detail: 'Milano · contactless', category: 'shop', amount: -42.30 },
+      { days: 0, time: '08:15', merchant: 'Bar Pasticceria Marchesi', detail: 'Milano · contactless', category: 'food', amount: -3.80 },
+      { days: 1, time: '20:10', merchant: 'Amazon.it', detail: 'Acquisto online', category: 'online', amount: -27.99 },
+      { days: 1, time: '12:31', merchant: 'Prelievo ATM', detail: 'Genesys Banca · Porta Romana', category: 'cash', amount: -100.00 },
+      { days: 2, time: '19:05', merchant: 'Eni Station', detail: 'Viale Umbria · carburante', category: 'fuel', amount: -55.00 },
+      { days: 2, time: '10:22', merchant: 'Farmacia Santa Teresa', detail: 'Milano', category: 'health', amount: -14.50 },
+      { days: 3, time: '21:47', merchant: 'Trenitalia', detail: 'Acquisto online · Milano-Roma', category: 'travel', amount: -39.90 },
+      { days: 4, time: '17:30', merchant: 'Zara', detail: 'Corso Vittorio Emanuele', category: 'shop', amount: -59.95 },
+      { days: 5, time: '09:12', merchant: 'Rimborso Amazon.it', detail: 'Reso accreditato', category: 'refund', amount: 18.50 },
+      { days: 6, time: '21:03', merchant: 'Ristorante Da Giacomo', detail: 'Milano · 2 persone', category: 'food', amount: -64.00 },
+      { days: 7, time: '16:40', merchant: 'IKEA', detail: 'San Giuliano Milanese', category: 'home', amount: -129.00 }
+    ];
+    var CATEGORY_ICONS = { shop: '🛒', food: '☕', online: '📦', cash: '🏧', fuel: '⛽', health: '💊', travel: '🚆', refund: '↩', home: '🛋' };
+
+    var euro = new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR', useGrouping: 'always' });
+    var dayFormat = new Intl.DateTimeFormat('it-IT', { weekday: 'long', day: 'numeric', month: 'long' });
+    var dateTime = new Intl.DateTimeFormat('it-IT', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
 
     var isIos = /iPhone|iPad|iPod/.test(navigator.userAgent);
     var isStandalone = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
     var pushSupported = 'serviceWorker' in navigator && 'PushManager' in window && 'Notification' in window;
     var registrationPromise = pushSupported ? navigator.serviceWorker.register('sw.js') : null;
 
+    function el(tag, className, text) {
+      var node = document.createElement(tag);
+      if (className) node.className = className;
+      if (text !== undefined) node.textContent = text;
+      return node;
+    }
+
+    function dayLabel(days, date) {
+      if (days === 0) return 'Oggi';
+      if (days === 1) return 'Ieri';
+      var label = dayFormat.format(date);
+      return label.charAt(0).toUpperCase() + label.slice(1);
+    }
+
+    function renderMovements() {
+      var container = document.querySelector('[data-movements]');
+      container.innerHTML = '';
+      var today = new Date();
+      var monthTotal = 0;
+      var currentDay = null;
+      var list = null;
+      MOVEMENTS.forEach(function (m) {
+        var date = new Date(today.getFullYear(), today.getMonth(), today.getDate() - m.days);
+        if (date.getMonth() === today.getMonth() && m.amount < 0) monthTotal -= m.amount;
+        if (m.days !== currentDay) {
+          currentDay = m.days;
+          container.append(el('h3', 'pwa-day', dayLabel(m.days, date)));
+          list = el('ul', 'app-moves pwa-moves');
+          container.append(list);
+        }
+        var item = el('li');
+        item.append(el('span', 'move-logo move-' + m.category, CATEGORY_ICONS[m.category]));
+        var text = el('span');
+        text.append(document.createTextNode(m.merchant), el('small', '', m.time + ' · ' + m.detail));
+        item.append(text);
+        item.append(el('strong', m.amount > 0 ? 'move-in' : '', (m.amount > 0 ? '+' : '−') + euro.format(Math.abs(m.amount))));
+        list.append(item);
+      });
+      document.querySelector('[data-month-total]').textContent = euro.format(monthTotal);
+    }
+
+    function showView(name) {
+      document.querySelectorAll('[data-view]').forEach(function (v) { v.hidden = v.getAttribute('data-view') !== name; });
+    }
+
+    function showTab(name) {
+      document.querySelectorAll('[data-tab]').forEach(function (t) { t.setAttribute('aria-selected', String(t.getAttribute('data-tab') === name)); });
+      document.querySelectorAll('[data-tab-panel]').forEach(function (p) { p.hidden = p.getAttribute('data-tab-panel') !== name; });
+      if (name === 'avvisi') renderInbox();
+    }
+
+    function openHome() {
+      showView('home');
+      showTab(new URLSearchParams(location.search).has('avvisi') ? 'avvisi' : 'movimenti');
+      renderMovements();
+      refreshState();
+      renderInbox();
+    }
+
+    function logIn() {
+      localStorage.setItem(SESSION_KEY, '1');
+      localStorage.setItem(CUSTOMER_KEY, JSON.stringify(DEMO_CUSTOMER));
+      applyCustomer(DEMO_CUSTOMER);
+      openHome();
+    }
+
+    function logOut() {
+      localStorage.removeItem(SESSION_KEY);
+      localStorage.removeItem(CUSTOMER_KEY);
+      applyCustomer(null);
+      showView('login');
+    }
+
     function showState(name) {
-      document.querySelectorAll('[data-state]').forEach(function (el) { el.hidden = el.getAttribute('data-state') !== name; });
+      document.querySelectorAll('[data-state]').forEach(function (s) { s.hidden = s.getAttribute('data-state') !== name; });
+      document.querySelector('[data-push-hint]').hidden = name !== 'ask' && name !== 'install';
     }
 
     function showError(message) {
-      var el = document.querySelector('[data-push-error]');
-      el.textContent = message;
-      el.hidden = !message;
+      var node = document.querySelector('[data-push-error]');
+      node.textContent = message;
+      node.hidden = !message;
     }
 
     function base64ToBytes(text) {
@@ -117,7 +239,7 @@
     }
 
     function saveSubscription(subscription) {
-      return post('/subscribe', { customerId: CUSTOMER_ID, subscription: subscription.toJSON() });
+      return post('/subscribe', { customerId: DEMO_CUSTOMER.id, subscription: subscription.toJSON() });
     }
 
     function enablePush() {
@@ -148,8 +270,6 @@
         .catch(function (error) { showError(error.message); });
     }
 
-    var dateTime = new Intl.DateTimeFormat('it-IT', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
-
     function renderInbox() {
       if (!('caches' in window)) return;
       caches.open('genesys-banca-inbox')
@@ -159,26 +279,35 @@
           var list = document.querySelector('[data-inbox]');
           list.innerHTML = '';
           inbox.forEach(function (message, index) {
-            var item = document.createElement('li');
-            if (index === 0) item.className = 'pwa-inbox-new';
-            var title = document.createElement('strong');
-            title.textContent = message.title;
-            var body = document.createElement('span');
-            body.textContent = message.body;
-            var when = document.createElement('small');
-            when.textContent = message.sentAt ? dateTime.format(new Date(message.sentAt)) : '';
-            item.append(title, body, when);
+            var item = el('li', index === 0 ? 'pwa-inbox-new' : '');
+            item.append(el('strong', '', message.title), el('span', '', message.body),
+              el('small', '', message.sentAt ? dateTime.format(new Date(message.sentAt)) : ''));
             list.append(item);
           });
           document.querySelector('[data-inbox-empty]').hidden = inbox.length > 0;
           document.querySelector('[data-bell]').classList.toggle('app-bell-on', inbox.length > 0);
+          var count = document.querySelector('[data-inbox-count]');
+          count.textContent = inbox.length;
+          count.hidden = inbox.length === 0;
         });
     }
 
+    document.querySelector('[data-login-form]').addEventListener('submit', function (event) {
+      event.preventDefault();
+      logIn();
+    });
+    document.querySelector('[data-face-id]').addEventListener('click', logIn);
+    document.querySelector('[data-app-logout]').addEventListener('click', logOut);
+    document.querySelectorAll('[data-tab]').forEach(function (t) {
+      t.addEventListener('click', function () { showTab(t.getAttribute('data-tab')); });
+    });
+    document.querySelectorAll('[data-go-tab]').forEach(function (b) {
+      b.addEventListener('click', function () { showTab(b.getAttribute('data-go-tab')); });
+    });
     document.querySelector('[data-enable-push]').addEventListener('click', enablePush);
     document.querySelector('[data-test-push]').addEventListener('click', function () {
       showError('');
-      post('/test', { customerId: CUSTOMER_ID }).catch(function (error) { showError('Invio non riuscito: ' + error.message); });
+      post('/test', { customerId: DEMO_CUSTOMER.id }).catch(function (error) { showError('Invio non riuscito: ' + error.message); });
     });
     if (pushSupported) {
       navigator.serviceWorker.addEventListener('message', function (event) {
@@ -187,8 +316,8 @@
     }
     document.addEventListener('visibilitychange', function () { if (!document.hidden) renderInbox(); });
 
-    refreshState();
-    renderInbox();
+    if (localStorage.getItem(SESSION_KEY)) openHome();
+    else showView('login');
   </script>
 </body>
 </html>
