@@ -25,18 +25,14 @@ var chatAttributes = {};
 var messengerReady = false;
 
 function pushAttributes() {
-  if (!messengerReady) return;
-  if (Object.keys(chatAttributes).length) {
-    Genesys('command', 'Database.set', { messaging: { customAttributes: chatAttributes } });
-  } else {
-    Genesys('command', 'Database.removeAll');
-  }
+  if (!messengerReady || !Object.keys(chatAttributes).length) return;
+  Genesys('command', 'Database.set', { messaging: { customAttributes: chatAttributes } });
 }
 
+// Database.set merges keys, so cleared values are sent as '' to overwrite stale ones.
 function setChatAttributes(values) {
   Object.keys(values).forEach(function (key) {
-    if (values[key] === null || values[key] === undefined) delete chatAttributes[key];
-    else chatAttributes[key] = String(values[key]);
+    chatAttributes[key] = values[key] === null || values[key] === undefined ? '' : String(values[key]);
   });
   pushAttributes();
 }
