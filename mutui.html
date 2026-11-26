@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=2">
+  <link rel="stylesheet" href="styles.css?v=4">
   <script src="app.js?v=4"></script>
 </head>
 <body>
@@ -19,7 +19,9 @@
         <span class="brand-name">Genesys <strong>Banca</strong></span>
       </a>
       <nav class="nav">
-        <a href="index.html#prodotti">Prodotti</a>
+        <a href="index.html#conti">Conti</a>
+        <a href="index.html#carte">Carte</a>
+        <a href="index.html#prestiti">Prestiti</a>
         <a href="mutui.html" class="active">Mutui</a>
         <a href="index.html#assistenza">Assistenza</a>
       </nav>
@@ -41,7 +43,7 @@
       <h2 id="login-title">Accedi al tuo profilo</h2>
       <p class="modal-text">Sito dimostrativo: scegli il cliente demo con cui accedere.</p>
       <button class="customer" data-login>
-        <span class="customer-avatar">GR</span>
+        <span class="customer-avatar">MB</span>
         <span class="customer-info">
           <strong>Marco Bianchi</strong>
           <span>Correntista dal 2019 · Filiale Milano Porta Romana</span>
@@ -55,12 +57,92 @@
     <section class="hero hero-small">
       <div class="container">
         <p class="eyebrow">Mutui Casa</p>
-        <h1>Calcola la rata del tuo mutuo</h1>
-        <p class="lead">Inserisci i dati dell'immobile, scegli durata e tipo di tasso e confronta le soluzioni. Quando vuoi, ti aiutiamo a trasformare la simulazione in una proposta.</p>
+        <h1>Il mutuo giusto per <span class="accent">la tua casa</span></h1>
+        <p class="lead">Che sia la prima casa, una casa green o il trasferimento del mutuo che hai già, trovi la soluzione su misura e un consulente che ti accompagna fino al rogito.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#simulatore">Simula la rata</a>
+          <button class="btn btn-ghost" data-open-chat>Parla con un consulente</button>
+        </div>
       </div>
     </section>
 
     <section class="section">
+      <div class="container">
+        <p class="eyebrow">Le nostre soluzioni</p>
+        <h2>Scegli il mutuo più adatto a te</h2>
+        <div class="types">
+          <article class="card type-card" data-mortgage-type="fisso" data-tasso="fisso">
+            <h3>Mutuo Tasso Fisso</h3>
+            <p class="type-rate">TAN da <strong>3,10%</strong></p>
+            <p>La rata resta uguale per tutta la durata: sai sempre quanto pagherai, qualunque cosa succeda ai mercati.</p>
+            <button class="link" data-simulate>Simula questo mutuo</button>
+          </article>
+          <article class="card type-card" data-mortgage-type="variabile" data-tasso="variabile">
+            <h3>Mutuo Tasso Variabile</h3>
+            <p class="type-rate">TAN da <strong>2,95%</strong></p>
+            <p>Il tasso segue l'Euribor: parti con una rata più bassa e approfitti dei ribassi dei tassi.</p>
+            <button class="link" data-simulate>Simula questo mutuo</button>
+          </article>
+          <article class="card type-card" data-mortgage-type="variabile_cap" data-tasso="variabile_cap">
+            <h3>Mutuo Variabile con CAP</h3>
+            <p class="type-rate">TAN da <strong>3,55%</strong></p>
+            <p>I vantaggi del variabile con un tetto massimo: la rata può scendere, ma non supera mai il limite concordato.</p>
+            <button class="link" data-simulate>Simula questo mutuo</button>
+          </article>
+          <article class="card type-card card-highlight" data-mortgage-type="under36" data-tasso="fisso" data-under36>
+            <span class="tag">Under 36</span>
+            <h3>Mutuo Giovani Prima Casa</h3>
+            <p class="type-rate">Fino al <strong>100%</strong> del valore</p>
+            <p>Per chi ha meno di 36 anni e compra la prima casa, con il Fondo di garanzia: puoi finanziare anche l'intero prezzo.</p>
+            <button class="link" data-simulate>Simula questo mutuo</button>
+          </article>
+          <article class="card type-card" data-mortgage-type="green" data-tasso="fisso" data-green>
+            <span class="tag tag-teal">Green</span>
+            <h3>Mutuo Green</h3>
+            <p class="type-rate">Sconto di <strong>0,20 punti</strong> sul tasso</p>
+            <p>Per acquistare o ristrutturare una casa in classe energetica A o B: risparmi sulla rata e sulle bollette.</p>
+            <button class="link" data-simulate>Simula questo mutuo</button>
+          </article>
+          <article class="card type-card" data-mortgage-type="surroga">
+            <h3>Surroga</h3>
+            <p class="type-rate"><strong>Senza costi</strong> di trasferimento</p>
+            <p>Porta da noi il mutuo che hai già in un'altra banca e ottieni condizioni migliori, senza spese notarili né di istruttoria.</p>
+            <button class="link" data-open-chat data-ask>Chiedi una valutazione</button>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-dark">
+      <div class="container">
+        <p class="eyebrow eyebrow-light">Come funziona</p>
+        <h2>Dalla simulazione alla proposta, senza perdere tempo</h2>
+        <ol class="steps">
+          <li>
+            <span class="step-number">1</span>
+            <h3>Simula online</h3>
+            <p>Confronta importo, durata e tipo di tasso: la rata si aggiorna in tempo reale.</p>
+          </li>
+          <li>
+            <span class="step-number">2</span>
+            <h3>Verifica preliminare</h3>
+            <p>Ti chiamiamo quando preferisci, con un preavviso e un codice per riconoscerci: in 5 minuti impostiamo la tua pratica.</p>
+          </li>
+          <li>
+            <span class="step-number">3</span>
+            <h3>Incontra il consulente</h3>
+            <p>Il consulente conosce già la tua situazione e ti presenta una proposta su misura.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section" id="simulatore">
+      <div class="container section-head">
+        <p class="eyebrow">Simulatore</p>
+        <h2>Calcola la rata del tuo mutuo</h2>
+        <p class="lead">Inserisci i dati dell'immobile, scegli durata e tipo di tasso e confronta le soluzioni. Quando vuoi, ti aiutiamo a trasformare la simulazione in una proposta.</p>
+      </div>
       <div class="container simulator">
         <form class="panel sim-form" data-sim-form>
           <div class="field">
@@ -142,8 +224,9 @@
     var HISTORY_KEY = 'genesys-banca-simulazioni';
 
     var form = document.querySelector('[data-sim-form]');
-    var euro = new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 });
-    var euroCents = new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR', minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    // it-IT does not group 4-digit numbers by default (1031,86 instead of 1.031,86).
+    var euro = new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0, useGrouping: 'always' });
+    var euroCents = new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR', minimumFractionDigits: 2, maximumFractionDigits: 2, useGrouping: 'always' });
     var percent = new Intl.NumberFormat('it-IT', { maximumFractionDigits: 2 });
 
     function readForm() {
@@ -214,6 +297,36 @@
       return euro.format(input.importo) + ' in ' + input.durata + ' anni, ' + RATE_LABELS[input.tasso].toLowerCase() +
         ', rata ' + euroCents.format(result.rata);
     }
+
+    var TYPE_LABELS = {
+      fisso: 'Tasso Fisso', variabile: 'Tasso Variabile', variabile_cap: 'Variabile con CAP',
+      under36: 'Giovani Prima Casa', green: 'Green', surroga: 'Surroga'
+    };
+
+    function selectMortgageType(card) {
+      var type = card.getAttribute('data-mortgage-type');
+      document.querySelectorAll('[data-mortgage-type]').forEach(function (el) {
+        el.classList.toggle('type-selected', el === card);
+      });
+      recordJourneyEvent('mutuo_tipologia', { tipologia: type });
+      setChatAttributes({ Mutuo_TipologiaInteresse: TYPE_LABELS[type] });
+    }
+
+    document.querySelectorAll('[data-mortgage-type]').forEach(function (card) {
+      var simulateButton = card.querySelector('[data-simulate]');
+      if (simulateButton) {
+        simulateButton.addEventListener('click', function () {
+          selectMortgageType(card);
+          form.elements.tasso.value = card.getAttribute('data-tasso');
+          form.elements.under36.checked = card.hasAttribute('data-under36');
+          form.elements.green.checked = card.hasAttribute('data-green');
+          clampImporto();
+          document.getElementById('simulatore').scrollIntoView({ behavior: 'smooth' });
+        });
+      }
+      var askButton = card.querySelector('[data-ask]');
+      if (askButton) askButton.addEventListener('click', function () { selectMortgageType(card); });
+    });
 
     form.addEventListener('input', clampImporto);
     form.addEventListener('submit', function (event) {
