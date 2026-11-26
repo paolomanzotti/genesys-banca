@@ -71,15 +71,17 @@ document.addEventListener('DOMContentLoaded', function () {
   applyCustomer(JSON.parse(localStorage.getItem(CUSTOMER_KEY) || 'null'));
 
   document.querySelectorAll('[data-open-login]').forEach(function (button) {
-    button.addEventListener('click', function () { modal.hidden = false; });
+    button.addEventListener('click', function () { if (modal) modal.hidden = false; });
   });
-  document.querySelector('[data-close-login]').addEventListener('click', function () { modal.hidden = true; });
-  modal.addEventListener('click', function (event) { if (event.target === modal) modal.hidden = true; });
-  document.querySelector('[data-login]').addEventListener('click', function () {
-    localStorage.setItem(CUSTOMER_KEY, JSON.stringify(DEMO_CUSTOMER));
-    applyCustomer(DEMO_CUSTOMER);
-    modal.hidden = true;
-  });
+  if (modal) {
+    document.querySelector('[data-close-login]').addEventListener('click', function () { modal.hidden = true; });
+    modal.addEventListener('click', function (event) { if (event.target === modal) modal.hidden = true; });
+    document.querySelector('[data-login]').addEventListener('click', function () {
+      localStorage.setItem(CUSTOMER_KEY, JSON.stringify(DEMO_CUSTOMER));
+      applyCustomer(DEMO_CUSTOMER);
+      modal.hidden = true;
+    });
+  }
   document.querySelectorAll('[data-logout]').forEach(function (button) {
     button.addEventListener('click', function () {
       localStorage.removeItem(CUSTOMER_KEY);

@@ -169,6 +169,26 @@ p { margin: 0 0 16px; }
 @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 @media (prefers-reduced-motion: reduce) { .float { animation: none; } }
 
+.pwa { background: linear-gradient(180deg, #fff 0%, var(--cream) 100%); }
+.pwa-screen {
+  max-width: 480px; margin: 0 auto; min-height: 100vh; display: flex; flex-direction: column; gap: 18px;
+  padding: calc(env(safe-area-inset-top) + 20px) 20px calc(env(safe-area-inset-bottom) + 96px);
+}
+.pwa .app-bell::after { display: none; }
+.pwa .app-bell.app-bell-on::after { display: block; }
+.pwa .app-card { height: 170px; }
+.pwa .app-actions { font-size: 0.8rem; }
+.pwa-panel { background: #fff; border-radius: 20px; padding: 20px; box-shadow: 0 6px 16px rgba(13, 22, 48, 0.06); }
+.pwa-panel h2 { font-size: 1.1rem; margin-bottom: 10px; }
+.pwa-panel p { color: var(--slate); font-size: 0.95rem; }
+.pwa-panel .btn { width: 100%; }
+.pwa-ok { color: #0e9f83 !important; font-weight: 700; }
+.pwa-error { color: var(--orange-dark) !important; font-size: 0.85rem !important; margin: 10px 0 0; }
+.pwa-inbox { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+.pwa-inbox li { display: flex; flex-direction: column; gap: 2px; padding: 12px 14px; border-radius: 14px; background: var(--cream); border-left: 4px solid var(--sand); }
+.pwa-inbox li.pwa-inbox-new { border-left-color: var(--orange); }
+.pwa-inbox span { font-size: 0.95rem; }
+.pwa-inbox small { color: var(--slate); font-size: 0.75rem; }
 .bubble { max-width: 85%; padding: 12px 16px; border-radius: 18px; font-size: 0.95rem; }
 .bubble-bot { background: var(--navy-soft); color: #fff; border-bottom-left-radius: 4px; }
 .bubble-user { background: var(--orange); color: #fff; align-self: flex-end; border-bottom-right-radius: 4px; }

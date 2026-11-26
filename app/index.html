@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Genesys Banca</title>
+  <meta name="theme-color" content="#0d1630">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Genesys Banca">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css?v=9">
+  <script>localStorage.setItem('genesys-banca-customer', JSON.stringify({ id: '8e5fbca8-84d5-4561-927d-ead9b71d831c', firstName: 'Marco', lastName: 'Bianchi' }));</script>
+  <script src="../app.js?v=5"></script>
+</head>
+<body class="pwa">
+  <main class="pwa-screen">
+    <div class="app-header">
+      <span class="app-avatar">MB</span>
+      <span>Ciao, <strong>Marco</strong></span>
+      <span class="app-bell" data-bell></span>
+    </div>
+
+    <div class="app-balance">
+      <span>Saldo disponibile</span>
+      <strong>3.482<small>,15 €</small></strong>
+    </div>
+
+    <div class="app-card">
+      <span class="app-card-brand">Genesys <strong>Banca</strong></span>
+      <span class="app-card-chip"></span>
+      <span class="app-card-number">•••• 4821</span>
+    </div>
+
+    <div class="app-actions">
+      <span><i class="ic-send"></i>Invia</span>
+      <span><i class="ic-receive"></i>Ricevi</span>
+      <span><i class="ic-card"></i>Carte</span>
+      <span><i class="ic-home"></i>Mutuo</span>
+    </div>
+
+    <section class="pwa-panel" data-push-panel>
+      <h2>Avvisi della banca</h2>
+      <div data-state="install" hidden>
+        <p>Per ricevere gli avvisi su iPhone aggiungi prima l'app alla schermata Home: tocca <strong>Condividi</strong> e poi <strong>Aggiungi alla schermata Home</strong>. Poi apri Genesys Banca dall'icona.</p>
+      </div>
+      <div data-state="unsupported" hidden>
+        <p>Questo browser non supporta le notifiche. Prova con Chrome, Edge o Safari aggiornati.</p>
+      </div>
+      <div data-state="ask" hidden>
+        <p>Ricevi in tempo reale gli appuntamenti con il consulente, con l'orario e il codice per riconoscerci.</p>
+        <button class="btn btn-primary" data-enable-push>Attiva notifiche</button>
+      </div>
+      <div data-state="denied" hidden>
+        <p>Le notifiche sono bloccate. Riattivale dalle impostazioni del dispositivo per Genesys Banca.</p>
+      </div>
+      <div data-state="active" hidden>
+        <p class="pwa-ok">Notifiche attive su questo dispositivo.</p>
+        <button class="link" data-test-push>Invia un avviso di prova</button>
+      </div>
+      <p class="pwa-error" data-push-error hidden></p>
+    </section>
+
+    <section class="pwa-panel">
+      <h2>I tuoi avvisi</h2>
+      <ul class="pwa-inbox" data-inbox></ul>
+      <p class="muted" data-inbox-empty>Nessun avviso per ora.</p>
+    </section>
+  </main>
+
+  <script>
+    var PUSH_API = 'https://genesys-banca-push.paolomanzotti.workers.dev';
+    var CUSTOMER_ID = '8e5fbca8-84d5-4561-927d-ead9b71d831c';
+
+    var isIos = /iPhone|iPad|iPod/.test(navigator.userAgent);
+    var isStandalone = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+    var pushSupported = 'serviceWorker' in navigator && 'PushManager' in window && 'Notification' in window;
+    var registrationPromise = pushSupported ? navigator.serviceWorker.register('sw.js') : null;
+
+    function showState(name) {
+      document.querySelectorAll('[data-state]').forEach(function (el) { el.hidden = el.getAttribute('data-state') !== name; });
+    }
+
+    function showError(message) {
+      var el = document.querySelector('[data-push-error]');
+      el.textContent = message;
+      el.hidden = !message;
+    }
+
+    function base64ToBytes(text) {
+      var base64 = text.replace(/-/g, '+').replace(/_/g, '/') + '==='.slice((text.length + 3) % 4);
+      return Uint8Array.from(atob(base64), function (c) { return c.charCodeAt(0); });
+    }
+
+    function post(path, body) {
+      return fetch(PUSH_API + path, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) })
+        .then(function (response) {
+          return response.json().then(function (data) {
+            if (!response.ok) throw new Error(data.error || response.statusText);
+            return data;
+          });
+        });
+    }
+
+    function saveSubscription(subscription) {
+      return post('/subscribe', { customerId: CUSTOMER_ID, subscription: subscription.toJSON() });
+    }
+
+    function enablePush() {
+      showError('');
+      Notification.requestPermission().then(function (permission) {
+        if (permission !== 'granted') return refreshState();
+        return Promise.all([registrationPromise, fetch(PUSH_API + '/vapid').then(function (r) { return r.json(); })])
+          .then(function (results) {
+            return results[0].pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: base64ToBytes(results[1].publicKey) });
+          })
+          .then(saveSubscription)
+          .then(refreshState);
+      }).catch(function (error) { showError('Attivazione non riuscita: ' + error.message); });
+    }
+
+    function refreshState() {
+      if (isIos && !isStandalone) return showState('install');
+      if (!pushSupported) return showState('unsupported');
+      if (Notification.permission === 'denied') return showState('denied');
+      if (Notification.permission !== 'granted') return showState('ask');
+      return registrationPromise
+        .then(function (registration) { return registration.pushManager.getSubscription(); })
+        .then(function (subscription) {
+          if (!subscription) return showState('ask');
+          showState('active');
+          return saveSubscription(subscription);
+        })
+        .catch(function (error) { showError(error.message); });
+    }
+
+    var dateTime = new Intl.DateTimeFormat('it-IT', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
+
+    function renderInbox() {
+      if (!('caches' in window)) return;
+      caches.open('genesys-banca-inbox')
+        .then(function (cache) { return cache.match('inbox.json'); })
+        .then(function (response) { return response ? response.json() : []; })
+        .then(function (inbox) {
+          var list = document.querySelector('[data-inbox]');
+          list.innerHTML = '';
+          inbox.forEach(function (message, index) {
+            var item = document.createElement('li');
+            if (index === 0) item.className = 'pwa-inbox-new';
+            var title = document.createElement('strong');
+            title.textContent = message.title;
+            var body = document.createElement('span');
+            body.textContent = message.body;
+            var when = document.createElement('small');
+            when.textContent = message.sentAt ? dateTime.format(new Date(message.sentAt)) : '';
+            item.append(title, body, when);
+            list.append(item);
+          });
+          document.querySelector('[data-inbox-empty]').hidden = inbox.length > 0;
+          document.querySelector('[data-bell]').classList.toggle('app-bell-on', inbox.length > 0);
+        });
+    }
+
+    document.querySelector('[data-enable-push]').addEventListener('click', enablePush);
+    document.querySelector('[data-test-push]').addEventListener('click', function () {
+      showError('');
+      post('/test', { customerId: CUSTOMER_ID }).catch(function (error) { showError('Invio non riuscito: ' + error.message); });
+    });
+    if (pushSupported) {
+      navigator.serviceWorker.addEventListener('message', function (event) {
+        if (event.data && event.data.type === 'inbox-updated') renderInbox();
+      });
+    }
+    document.addEventListener('visibilitychange', function () { if (!document.hidden) renderInbox(); });
+
+    refreshState();
+    renderInbox();
+  </script>
+</body>
+</html>
