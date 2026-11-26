@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Simulatore mutuo | Genesys Banca</title>
+  <meta name="description" content="Simula la rata del tuo mutuo casa con Genesys Banca: tasso fisso, variabile o con CAP, anche per under 36.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=2">
+  <script src="app.js?v=2"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-name">Genesys <strong>Banca</strong></span>
+      </a>
+      <nav class="nav">
+        <a href="index.html#prodotti">Prodotti</a>
+        <a href="mutui.html" class="active">Mutui</a>
+        <a href="index.html#assistenza">Assistenza</a>
+      </nav>
+      <div class="account" data-logged-out>
+        <button class="btn btn-ghost btn-small" data-open-login>Area clienti</button>
+      </div>
+      <div class="account" data-logged-in hidden>
+        <span class="greeting">Ciao, <strong data-customer-first-name></strong></span>
+        <button class="link link-plain" data-logout>Esci</button>
+      </div>
+      <button class="btn btn-primary btn-small" data-open-chat>Parla con noi</button>
+    </div>
+  </header>
+
+  <div class="modal" data-login-modal hidden>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="login-title">
+      <button class="modal-close" data-close-login aria-label="Chiudi">×</button>
+      <p class="eyebrow">Area clienti</p>
+      <h2 id="login-title">Accedi al tuo profilo</h2>
+      <p class="modal-text">Sito dimostrativo: scegli il cliente demo con cui accedere.</p>
+      <button class="customer" data-login>
+        <span class="customer-avatar">GR</span>
+        <span class="customer-info">
+          <strong>Giulia Rossi</strong>
+          <span>Correntista dal 2018 · Filiale Milano Porta Romana</span>
+        </span>
+        <span class="customer-go">Accedi →</span>
+      </button>
+    </div>
+  </div>
+
+  <main>
+    <section class="hero hero-small">
+      <div class="container">
+        <p class="eyebrow">Mutui Casa</p>
+        <h1>Calcola la rata del tuo mutuo</h1>
+        <p class="lead">Inserisci i dati dell'immobile, scegli durata e tipo di tasso e confronta le soluzioni. Quando vuoi, ti aiutiamo a trasformare la simulazione in una proposta.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container simulator">
+        <form class="panel sim-form" data-sim-form>
+          <div class="field">
+            <label for="valore">Valore dell'immobile <output data-out="valore"></output></label>
+            <input id="valore" name="valore" type="range" min="80000" max="800000" step="5000" value="280000">
+          </div>
+          <div class="field">
+            <label for="importo">Importo del mutuo <output data-out="importo"></output></label>
+            <input id="importo" name="importo" type="range" min="30000" max="800000" step="5000" value="220000">
+            <span class="field-hint" data-ltv-hint></span>
+          </div>
+          <div class="field">
+            <span><strong>Durata</strong></span>
+            <div class="segmented">
+              <input type="radio" id="d10" name="durata" value="10"><label for="d10">10 anni</label>
+              <input type="radio" id="d15" name="durata" value="15"><label for="d15">15 anni</label>
+              <input type="radio" id="d20" name="durata" value="20"><label for="d20">20 anni</label>
+              <input type="radio" id="d25" name="durata" value="25" checked><label for="d25">25 anni</label>
+              <input type="radio" id="d30" name="durata" value="30"><label for="d30">30 anni</label>
+            </div>
+          </div>
+          <div class="field">
+            <span><strong>Tipo di tasso</strong></span>
+            <div class="segmented">
+              <input type="radio" id="t-fisso" name="tasso" value="fisso" checked><label for="t-fisso">Fisso</label>
+              <input type="radio" id="t-variabile" name="tasso" value="variabile"><label for="t-variabile">Variabile</label>
+              <input type="radio" id="t-cap" name="tasso" value="variabile_cap"><label for="t-cap">Variabile con CAP</label>
+            </div>
+          </div>
+          <div class="field">
+            <label class="check"><input type="checkbox" name="under36"> Ho meno di 36 anni ed è la mia prima casa</label>
+            <label class="check"><input type="checkbox" name="green"> L'immobile è in classe energetica A o B</label>
+          </div>
+          <div class="field">
+            <label for="reddito">Reddito netto mensile del nucleo (facoltativo)</label>
+            <input id="reddito" name="reddito" type="number" min="0" step="100" placeholder="Es. 2.800">
+            <span class="field-hint">Serve a stimare la sostenibilità della rata: idealmente non oltre un terzo del reddito.</span>
+          </div>
+          <button class="btn btn-primary" type="submit">Calcola la rata</button>
+        </form>
+
+        <aside class="panel result" aria-live="polite">
+          <p class="eyebrow">La tua simulazione</p>
+          <div data-result-empty class="result-empty">
+            <p>Imposta i parametri e premi <strong>Calcola la rata</strong> per vedere il risultato.</p>
+          </div>
+          <div data-result hidden>
+            <p class="result-rate"><span data-res="rata"></span> <small>al mese</small></p>
+            <ul class="result-list">
+              <li><span>Importo</span><strong data-res="importo"></strong></li>
+              <li><span>Durata</span><strong data-res="durata"></strong></li>
+              <li><span>Tasso</span><strong data-res="tasso"></strong></li>
+              <li><span>Finanziamento sul valore</span><strong data-res="ltv"></strong></li>
+              <li><span>Interessi totali</span><strong data-res="interessi"></strong></li>
+              <li data-res-row="rapporto" hidden><span>Rata sul reddito</span><strong data-res="rapporto"></strong></li>
+            </ul>
+            <button class="btn btn-primary" type="button" data-open-chat>Richiedi una verifica preliminare</button>
+            <p class="sim-count" data-sim-count></p>
+          </div>
+          <p class="result-note">Simulazione indicativa e non vincolante, con tassi di fantasia. L'erogazione è subordinata all'istruttoria e alla perizia dell'immobile.</p>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span class="brand-name">Genesys <strong>Banca</strong></span>
+      <p>Sito dimostrativo realizzato con Genesys Cloud. Genesys Banca è un marchio di fantasia: prodotti, tassi e condizioni non sono reali.</p>
+    </div>
+  </footer>
+
+  <script>
+    var RATES = { fisso: 3.10, variabile: 2.95, variabile_cap: 3.55 };
+    var RATE_LABELS = { fisso: 'Fisso', variabile: 'Variabile', variabile_cap: 'Variabile con CAP' };
+    var GREEN_DISCOUNT = 0.20;
+    var MAX_LTV = 0.80;
+    var MAX_LTV_UNDER36 = 1.00;
+    var HISTORY_KEY = 'genesys-banca-simulazioni';
+
+    var form = document.querySelector('[data-sim-form]');
+    var euro = new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 });
+    var euroCents = new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR', minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    var percent = new Intl.NumberFormat('it-IT', { maximumFractionDigits: 2 });
+
+    function readForm() {
+      var data = new FormData(form);
+      return {
+        valore: Number(data.get('valore')),
+        importo: Number(data.get('importo')),
+        durata: Number(data.get('durata')),
+        tasso: data.get('tasso'),
+        under36: data.get('under36') === 'on',
+        green: data.get('green') === 'on',
+        reddito: Number(data.get('reddito')) || 0
+      };
+    }
+
+    function clampImporto() {
+      var input = readForm();
+      var maxLtv = input.under36 ? MAX_LTV_UNDER36 : MAX_LTV;
+      var maxImporto = Math.floor(input.valore * maxLtv / 5000) * 5000;
+      var importoInput = form.elements.importo;
+      importoInput.max = maxImporto;
+      if (Number(importoInput.value) > maxImporto) importoInput.value = maxImporto;
+      document.querySelector('[data-out="valore"]').textContent = euro.format(input.valore);
+      document.querySelector('[data-out="importo"]').textContent = euro.format(Number(importoInput.value));
+      document.querySelector('[data-ltv-hint]').textContent = input.under36
+        ? 'Under 36 prima casa: fino al 100% del valore con il Fondo di garanzia.'
+        : 'Fino all\'80% del valore dell\'immobile.';
+    }
+
+    function simulate(input) {
+      var tan = RATES[input.tasso] - (input.green ? GREEN_DISCOUNT : 0);
+      var monthlyRate = tan / 100 / 12;
+      var months = input.durata * 12;
+      var rata = input.importo * monthlyRate / (1 - Math.pow(1 + monthlyRate, -months));
+      var rapporto = input.reddito ? rata / input.reddito * 100 : null;
+      return {
+        tan: tan,
+        rata: rata,
+        ltv: input.importo / input.valore * 100,
+        interessi: rata * months - input.importo,
+        rapporto: rapporto,
+        esito: rapporto === null ? null : rapporto <= 33 ? 'verde' : rapporto <= 40 ? 'giallo' : 'rosso'
+      };
+    }
+
+    function renderResult(input, result, count) {
+      document.querySelector('[data-result-empty]').hidden = true;
+      document.querySelector('[data-result]').hidden = false;
+      document.querySelector('[data-res="rata"]').textContent = euroCents.format(result.rata);
+      document.querySelector('[data-res="importo"]').textContent = euro.format(input.importo);
+      document.querySelector('[data-res="durata"]').textContent = input.durata + ' anni';
+      document.querySelector('[data-res="tasso"]').textContent =
+        RATE_LABELS[input.tasso] + ' · TAN ' + percent.format(result.tan) + '%' + (input.green ? ' (green)' : '');
+      document.querySelector('[data-res="ltv"]').textContent = percent.format(result.ltv) + '%';
+      document.querySelector('[data-res="interessi"]').textContent = euro.format(result.interessi);
+      var rapportoRow = document.querySelector('[data-res-row="rapporto"]');
+      rapportoRow.hidden = result.rapporto === null;
+      if (result.rapporto !== null) {
+        var badge = { verde: 'badge-green', giallo: 'badge-yellow', rosso: 'badge-red' }[result.esito];
+        document.querySelector('[data-res="rapporto"]').innerHTML =
+          '<span class="badge ' + badge + '">' + percent.format(result.rapporto) + '%</span>';
+      }
+      document.querySelector('[data-sim-count]').textContent =
+        count === 1 ? 'Hai fatto 1 simulazione.' : 'Hai fatto ' + count + ' simulazioni: possiamo aiutarti a confrontarle.';
+    }
+
+    function summary(input, result) {
+      return euro.format(input.importo) + ' in ' + input.durata + ' anni, ' + RATE_LABELS[input.tasso].toLowerCase() +
+        ', rata ' + euroCents.format(result.rata);
+    }
+
+    form.addEventListener('input', clampImporto);
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+      var input = readForm();
+      var result = simulate(input);
+      var history = JSON.parse(sessionStorage.getItem(HISTORY_KEY) || '[]');
+      history.push(summary(input, result));
+      sessionStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+      renderResult(input, result, history.length);
+
+      recordJourneyEvent('mutuo_simulazione', {
+        importo: input.importo,
+        valore_immobile: input.valore,
+        durata_anni: input.durata,
+        tipo_tasso: input.tasso,
+        tan: Number(result.tan.toFixed(2)),
+        rata: Math.round(result.rata),
+        ltv: Math.round(result.ltv),
+        under36: input.under36,
+        green: input.green,
+        numero_simulazione: history.length
+      });
+
+      setChatAttributes({
+        Mutuo_Importo: input.importo,
+        Mutuo_ValoreImmobile: input.valore,
+        Mutuo_Durata: input.durata,
+        Mutuo_TipoTasso: RATE_LABELS[input.tasso],
+        Mutuo_TAN: result.tan.toFixed(2),
+        Mutuo_Rata: result.rata.toFixed(2),
+        Mutuo_LTV: Math.round(result.ltv),
+        Mutuo_Under36: input.under36,
+        Mutuo_Green: input.green,
+        Mutuo_RedditoNetto: input.reddito || null,
+        Mutuo_RapportoRataReddito: result.rapporto === null ? null : result.rapporto.toFixed(1),
+        Mutuo_NumeroSimulazioni: history.length,
+        Mutuo_UltimeSimulazioni: history.slice(-3).join(' | ')
+      });
+    });
+
+    clampImporto();
+  </script>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Genesys Banca | Conti, Mutui e Prestiti</title>
+  <meta name="description" content="Genesys Banca: conto, carte, mutui e prestiti, con assistenza in chat 24 ore su 24.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=2">
+  <script src="app.js?v=2"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-name">Genesys <strong>Banca</strong></span>
+      </a>
+      <nav class="nav">
+        <a href="#prodotti">Prodotti</a>
+        <a href="mutui.html">Mutui</a>
+        <a href="#assistenza">Assistenza</a>
+      </nav>
+      <div class="account" data-logged-out>
+        <button class="btn btn-ghost btn-small" data-open-login>Area clienti</button>
+      </div>
+      <div class="account" data-logged-in hidden>
+        <span class="greeting">Ciao, <strong data-customer-first-name></strong></span>
+        <button class="link link-plain" data-logout>Esci</button>
+      </div>
+      <button class="btn btn-primary btn-small" data-open-chat>Parla con noi</button>
+    </div>
+  </header>
+
+  <div class="modal" data-login-modal hidden>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="login-title">
+      <button class="modal-close" data-close-login aria-label="Chiudi">×</button>
+      <p class="eyebrow">Area clienti</p>
+      <h2 id="login-title">Accedi al tuo profilo</h2>
+      <p class="modal-text">Sito dimostrativo: scegli il cliente demo con cui accedere.</p>
+      <button class="customer" data-login>
+        <span class="customer-avatar">GR</span>
+        <span class="customer-info">
+          <strong>Giulia Rossi</strong>
+          <span>Correntista dal 2018 · Filiale Milano Porta Romana</span>
+        </span>
+        <span class="customer-go">Accedi →</span>
+      </button>
+    </div>
+  </div>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-inner">
+        <div class="hero-text">
+          <p class="eyebrow">La tua banca, ovunque</p>
+          <h1>La casa che desideri, <span class="accent">un passo alla volta</span>.</h1>
+          <p class="lead">Simula il tuo mutuo in pochi secondi e, quando vuoi, ti aiutiamo a trasformare la simulazione in una proposta su misura, senza dover ricominciare da capo.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="mutui.html">Simula il tuo mutuo</a>
+            <button class="btn btn-ghost" data-open-chat>Parla con noi</button>
+          </div>
+        </div>
+        <div class="hero-card" aria-hidden="true">
+          <div class="bubble bubble-bot">Ciao, sono l'assistente di Genesys Banca. Come posso aiutarti?</div>
+          <div class="bubble bubble-user">Vorrei capire quanto posso chiedere per il mutuo della prima casa</div>
+          <div class="bubble bubble-bot">Volentieri! Mi dici il valore dell'immobile e quanto pensi di anticipare?</div>
+          <div class="typing"><span></span><span></span><span></span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="prodotti" class="section">
+      <div class="container">
+        <p class="eyebrow">I nostri prodotti</p>
+        <h2>Tutto quello che ti serve, in un'unica banca</h2>
+        <div class="cards">
+          <article class="card">
+            <div class="icon icon-blue">
+              <svg viewBox="0 0 24 24"><path d="M3 7h18v12H3zM3 11h18M7 15h4"/></svg>
+            </div>
+            <h3>Conto e Carte</h3>
+            <p>Conto online a canone zero, carta di debito e carta di credito, con notifiche in tempo reale su ogni pagamento.</p>
+            <button class="link" data-open-chat>Chiedi informazioni</button>
+          </article>
+          <article class="card card-highlight">
+            <span class="tag">Under 36</span>
+            <div class="icon icon-orange">
+              <svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7M5 10v10h14V10M10 20v-6h4v6"/></svg>
+            </div>
+            <h3>Mutui Casa</h3>
+            <p>Tasso fisso, variabile o con CAP. Per gli under 36 fino al 100% del valore dell'immobile con il Fondo di garanzia prima casa.</p>
+            <a class="link" href="mutui.html">Simula la rata</a>
+          </article>
+          <article class="card">
+            <div class="icon icon-teal">
+              <svg viewBox="0 0 24 24"><path d="M12 3v18M17 7H9.5a3 3 0 0 0 0 6h5a3 3 0 0 1 0 6H6"/></svg>
+            </div>
+            <h3>Prestiti</h3>
+            <p>Prestiti personali per i tuoi progetti, con rata fissa e risposta rapida direttamente online.</p>
+            <button class="link" data-open-chat>Chiedi informazioni</button>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-dark">
+      <div class="container">
+        <p class="eyebrow eyebrow-light">Mutuo prima casa</p>
+        <h2>Dalla simulazione alla proposta, senza perdere tempo</h2>
+        <ol class="steps">
+          <li>
+            <span class="step-number">1</span>
+            <h3>Simula online</h3>
+            <p>Confronta importo, durata e tipo di tasso: la rata si aggiorna in tempo reale.</p>
+          </li>
+          <li>
+            <span class="step-number">2</span>
+            <h3>Verifica preliminare</h3>
+            <p>Ti chiamiamo quando preferisci, con un preavviso e un codice per riconoscerci: in 5 minuti impostiamo la tua pratica.</p>
+          </li>
+          <li>
+            <span class="step-number">3</span>
+            <h3>Incontra il consulente</h3>
+            <p>Il consulente conosce già la tua situazione e ti presenta una proposta su misura.</p>
+          </li>
+        </ol>
+        <a class="btn btn-primary" href="mutui.html">Inizia dalla simulazione</a>
+      </div>
+    </section>
+
+    <section id="assistenza" class="section">
+      <div class="container assist">
+        <div>
+          <p class="eyebrow">Assistenza</p>
+          <h2>Siamo qui per te, sempre</h2>
+          <p class="lead">L'assistente virtuale risponde subito e, quando serve, ti mette in contatto con un consulente senza farti ripetere nulla.</p>
+          <p class="muted">Genesys Banca non ti chiederà mai PIN, password o codici OTP, né di spostare denaro su un "conto sicuro".</p>
+        </div>
+        <ul class="assist-list">
+          <li><strong>Chat</strong><span>Attiva 24 ore su 24, 7 giorni su 7</span></li>
+          <li><strong>Consulenti</strong><span>Dal lunedì al venerdì dalle 8 alle 22, il sabato dalle 9 alle 17</span></li>
+          <li><strong>Mutui</strong><span>Simulazione, verifica preliminare e appuntamento con il consulente</span></li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span class="brand-name">Genesys <strong>Banca</strong></span>
+      <p>Sito dimostrativo realizzato con Genesys Cloud. Genesys Banca è un marchio di fantasia: prodotti, tassi e condizioni non sono reali.</p>
+    </div>
+  </footer>
+</body>
+</html>
