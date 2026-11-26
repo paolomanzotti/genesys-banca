@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=4">
+  <link rel="stylesheet" href="styles.css?v=7">
   <script src="app.js?v=4"></script>
 </head>
 <body>
@@ -65,11 +65,47 @@
             <button class="btn btn-ghost" data-open-chat>Parla con noi</button>
           </div>
         </div>
-        <div class="hero-card" aria-hidden="true">
-          <div class="bubble bubble-bot">Ciao, sono l'assistente di Genesys Banca. Come posso aiutarti?</div>
-          <div class="bubble bubble-user">Vorrei aumentare il limite della carta di credito per questo mese</div>
-          <div class="bubble bubble-bot">Certo! Ti mostro le opzioni disponibili per la tua carta che termina con 4821.</div>
-          <div class="typing"><span></span><span></span><span></span></div>
+        <div class="hero-visual" aria-hidden="true">
+          <div class="phone">
+            <div class="phone-notch"></div>
+            <div class="phone-screen">
+              <div class="app-status"><span>9:41</span><span class="app-status-icons"><i></i><i></i><i></i></span></div>
+              <div class="app-header">
+                <span class="app-avatar">MB</span>
+                <span>Ciao, <strong>Marco</strong></span>
+                <span class="app-bell"></span>
+              </div>
+              <div class="app-balance">
+                <span>Saldo disponibile</span>
+                <strong>3.482<small>,15 €</small></strong>
+              </div>
+              <div class="app-card">
+                <span class="app-card-brand">Genesys <strong>Banca</strong></span>
+                <span class="app-card-chip"></span>
+                <span class="app-card-number">•••• 4821</span>
+              </div>
+              <div class="app-actions">
+                <span><i class="ic-send"></i>Invia</span>
+                <span><i class="ic-receive"></i>Ricevi</span>
+                <span><i class="ic-card"></i>Carte</span>
+                <span><i class="ic-home"></i>Mutuo</span>
+              </div>
+              <ul class="app-moves">
+                <li><span class="move-logo move-shop">E</span><span>Esselunga<small>Oggi, 18:42</small></span><strong>−42,30 €</strong></li>
+                <li><span class="move-logo move-salary">€</span><span>Stipendio<small>25 nov</small></span><strong class="move-in">+2.150,00 €</strong></li>
+                <li><span class="move-logo move-sub">N</span><span>Netflix<small>23 nov</small></span><strong>−12,99 €</strong></li>
+              </ul>
+              <div class="app-tabbar"><i class="on"></i><i></i><i></i><i></i></div>
+            </div>
+          </div>
+          <div class="float float-pay">
+            <span class="float-icon">✓</span>
+            <span><strong>Pagamento con carta</strong>Esselunga · 42,30 €</span>
+          </div>
+          <div class="float float-chat">
+            <span class="float-avatar"></span>
+            <span><strong>Assistente Genesys Banca</strong>Ciao Marco 👋 vuoi aumentare il limite della carta per questo mese?</span>
+          </div>
         </div>
       </div>
     </section>
