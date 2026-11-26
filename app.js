@@ -3,7 +3,7 @@ var GENESYS_CONFIG = {
   deploymentId: 'efdfda93-c778-46ce-a580-45acf21d4a33'
 };
 
-var DEMO_CUSTOMER = { id: 'fcdd458a-624d-44fa-82cd-82f01b759e2f', firstName: 'Giulia', lastName: 'Rossi' };
+var DEMO_CUSTOMER = { id: '8e5fbca8-84d5-4561-927d-ead9b71d831c', firstName: 'Marco', lastName: 'Bianchi' };
 var CUSTOMER_KEY = 'genesys-banca-customer';
 
 (function loadMessenger() {
