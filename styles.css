@@ -202,6 +202,10 @@ p { margin: 0 0 16px; }
 .product-list li::before { content: ""; position: absolute; left: 0; top: 0.55em; width: 10px; height: 10px; border-radius: 50%; background: var(--orange); opacity: 0.85; }
 .tag-teal { background: var(--teal); color: var(--navy); }
 .card .tag { align-self: flex-start; }
+.card-clickable { position: relative; cursor: pointer; }
+.card-clickable .link::before { content: ""; position: absolute; inset: 0; border-radius: inherit; }
+.card-clickable:hover .link { color: var(--orange); }
+.card-clickable:hover { border-color: var(--orange); }
 [id] { scroll-margin-top: 88px; }
 
 .feature { display: grid; grid-template-columns: 1.3fr 1fr; gap: 56px; align-items: center; }
