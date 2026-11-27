@@ -80,6 +80,11 @@ function applyCustomer(customer) {
   });
 }
 
+// The browser Back button restores the home from the back/forward cache without a new DOMContentLoaded.
+window.addEventListener('pageshow', function (event) {
+  if (event.persisted) recordMortgageAbandon();
+});
+
 document.addEventListener('DOMContentLoaded', function () {
   var modal = document.querySelector('[data-login-modal]');
   applyCustomer(JSON.parse(localStorage.getItem(CUSTOMER_KEY) || 'null'));
