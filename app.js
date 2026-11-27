@@ -21,7 +21,12 @@ var CUSTOMER_KEY = 'genesys-banca-customer';
   })(window, 'Genesys', 'https://apps.mypurecloud.ie/genesys-bootstrap/genesys.min.js', GENESYS_CONFIG);
 })();
 
-var chatAttributes = {};
+var CHAT_ATTRIBUTES_KEY = 'genesys-banca-chat';
+var SIMULATIONS_KEY = 'genesys-banca-simulazioni';
+var ABANDON_KEY = 'genesys-banca-abbandono';
+
+// Kept per tab so a chat accepted on another page still carries the simulation to the consultant.
+var chatAttributes = JSON.parse(sessionStorage.getItem(CHAT_ATTRIBUTES_KEY) || '{}');
 var messengerReady = false;
 
 function pushAttributes() {
@@ -34,6 +39,7 @@ function setChatAttributes(values) {
   Object.keys(values).forEach(function (key) {
     chatAttributes[key] = values[key] === null || values[key] === undefined ? '' : String(values[key]);
   });
+  sessionStorage.setItem(CHAT_ATTRIBUTES_KEY, JSON.stringify(chatAttributes));
   pushAttributes();
 }
 
@@ -44,6 +50,14 @@ Genesys('subscribe', 'Database.ready', function () {
 
 function recordJourneyEvent(eventName, attributes) {
   Genesys('command', 'Journey.record', { eventName: eventName, customAttributes: attributes });
+}
+
+// Back on the home page after simulating a mortgage: Predictive Engagement offers the expert chat.
+function recordMortgageAbandon() {
+  var simulations = JSON.parse(sessionStorage.getItem(SIMULATIONS_KEY) || '[]');
+  if (!document.querySelector('[data-home]') || !simulations.length || sessionStorage.getItem(ABANDON_KEY)) return;
+  sessionStorage.setItem(ABANDON_KEY, '1');
+  recordJourneyEvent('mutuo_abbandono', { numero_simulazioni: simulations.length });
 }
 
 function openChat() {
@@ -69,6 +83,7 @@ function applyCustomer(customer) {
 document.addEventListener('DOMContentLoaded', function () {
   var modal = document.querySelector('[data-login-modal]');
   applyCustomer(JSON.parse(localStorage.getItem(CUSTOMER_KEY) || 'null'));
+  recordMortgageAbandon();
 
   document.querySelectorAll('[data-open-login]').forEach(function (button) {
     button.addEventListener('click', function () { if (modal) modal.hidden = false; });
