@@ -342,6 +342,11 @@ button.app-bell { border: 0; cursor: pointer; margin-left: auto; }
 .footer { background: var(--navy-deep); color: #fff; padding: 40px 0; }
 .footer-inner { display: flex; gap: 32px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
 .footer p { margin: 0; color: #7a8ec7; font-size: 0.9rem; max-width: 640px; }
+.footer-reset {
+  background: none; border: 0; padding: 0; cursor: pointer;
+  color: #7a8ec7; font: inherit; font-size: 0.85rem; text-decoration: underline;
+}
+.footer-reset:hover { color: #fff; }
 
 @media (max-width: 1100px) {
   .cards-4, .types { grid-template-columns: repeat(2, 1fr); }

@@ -60,6 +60,19 @@ function recordMortgageAbandon() {
   recordJourneyEvent('mutuo_abbandono', { numero_simulazioni: simulations.length });
 }
 
+// Fresh demo run: Messenger.clear also wipes the Predictive Engagement visitor and session,
+// so the proactive offer can fire again. The Marco login is kept.
+function resetDemo() {
+  Object.keys(sessionStorage).forEach(function (key) {
+    if (key.indexOf('genesys-banca-') === 0) sessionStorage.removeItem(key);
+  });
+  var reload = function () { location.replace(location.pathname); };
+  var fallback = setTimeout(reload, 3000);
+  Genesys('command', 'Messenger.clear', {},
+    function () { clearTimeout(fallback); reload(); },
+    function () { clearTimeout(fallback); reload(); });
+}
+
 function openChat() {
   Genesys('command', 'Messenger.open', {});
 }
@@ -107,6 +120,9 @@ document.addEventListener('DOMContentLoaded', function () {
       localStorage.removeItem(CUSTOMER_KEY);
       applyCustomer(null);
     });
+  });
+  document.querySelectorAll('[data-reset-demo]').forEach(function (button) {
+    button.addEventListener('click', resetDemo);
   });
   document.querySelectorAll('[data-open-chat]').forEach(function (button) {
     button.addEventListener('click', openChat);
