@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Prestiti personali | Genesys Banca</title>
+  <meta name="description" content="Prestiti Genesys Banca per auto, casa, studio e progetti personali: rata fissa ed esito rapido.">
+  <link rel="icon" type="image/png" href="app/icons/icon-192.png">
+  <link rel="apple-touch-icon" href="app/icons/apple-touch-icon.png">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Genesys Banca">
+  <meta property="og:title" content="Prestiti | Genesys Banca">
+  <meta property="og:description" content="Prestiti Genesys Banca per auto, casa, studio e progetti personali: rata fissa ed esito rapido.">
+  <meta property="og:url" content="https://paolomanzotti.github.io/genesys-banca/prestiti.html">
+  <meta property="og:image" content="https://paolomanzotti.github.io/genesys-banca/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=13">
+  <script src="app.js?v=8"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-name">Genesys <strong>Banca</strong></span>
+      </a>
+      <nav class="nav">
+        <a href="conti.html">Conti</a>
+        <a href="carte.html">Carte</a>
+        <a href="prestiti.html" class="active">Prestiti</a>
+        <a href="mutui.html">Mutui</a>
+        <a href="index.html#assistenza">Assistenza</a>
+      </nav>
+      <div class="account" data-logged-out>
+        <button class="btn btn-ghost btn-small" data-open-login>Area clienti</button>
+      </div>
+      <div class="account" data-logged-in hidden>
+        <span class="greeting">Ciao, <strong data-customer-first-name></strong></span>
+        <button class="link link-plain" data-logout>Esci</button>
+      </div>
+      <button class="btn btn-primary btn-small" data-open-chat>Parla con noi</button>
+    </div>
+  </header>
+
+  <div class="modal" data-login-modal hidden>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="login-title">
+      <button class="modal-close" data-close-login aria-label="Chiudi">×</button>
+      <p class="eyebrow">Area clienti</p>
+      <h2 id="login-title">Accedi al tuo profilo</h2>
+      <p class="modal-text">Sito dimostrativo: scegli il cliente demo con cui accedere.</p>
+      <button class="customer" data-login>
+        <span class="customer-avatar">MB</span>
+        <span class="customer-info">
+          <strong>Marco Bianchi</strong>
+          <span>Correntista dal 2019 · Filiale Milano Porta Romana</span>
+        </span>
+        <span class="customer-go">Accedi →</span>
+      </button>
+    </div>
+  </div>
+
+  <main>
+    <section class="hero hero-small">
+      <div class="container">
+        <p class="eyebrow">Prestiti</p>
+        <h1>Realizza i tuoi progetti, <span class="accent">con la rata giusta</span></h1>
+        <p class="lead">Prestiti da 3.000 a 50.000 euro con rata fissa, durata da 12 a 120 mesi ed esito in 24 ore per i correntisti.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#prodotti">Scopri le soluzioni</a>
+          <button class="btn btn-ghost" data-open-chat>Parla con un consulente</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="prodotti">
+      <div class="container">
+        <p class="eyebrow">Le nostre soluzioni</p>
+        <h2>Scegli il prestito per il tuo progetto</h2>
+        <div class="types">
+          <article class="card type-card">
+            <h3>Prestito Personale</h3>
+            <p class="type-rate">TAN da <strong>6,90%</strong></p>
+            <p>Da 3.000 a 50.000 € per qualsiasi progetto, con rata fissa da 12 a 120 mesi e nessuna spesa di istruttoria.</p>
+            <button class="link" data-open-chat>Chiedi informazioni</button>
+          </article>
+          <article class="card type-card">
+            <h3>Prestito Auto</h3>
+            <p class="type-rate">TAN da <strong>5,90%</strong></p>
+            <p>Per l'auto nuova o usata, fino a 84 mesi: e se scegli un'auto elettrica il tasso scende ancora.</p>
+            <button class="link" data-open-chat>Chiedi informazioni</button>
+          </article>
+          <article class="card type-card">
+            <span class="tag tag-teal">Casa</span>
+            <h3>Prestito Ristrutturazione</h3>
+            <p class="type-rate">TAN da <strong>5,50%</strong></p>
+            <p>Per rinnovare casa o migliorarne l'efficienza energetica, con la possibilità di sfruttare le detrazioni fiscali.</p>
+            <button class="link" data-open-chat>Chiedi informazioni</button>
+          </article>
+          <article class="card type-card">
+            <span class="tag">Under 30</span>
+            <h3>Prestito Studio</h3>
+            <p class="type-rate">TAN da <strong>3,90%</strong></p>
+            <p>Per università, master e corsi all'estero, con la possibilità di iniziare a rimborsare dopo la fine degli studi.</p>
+            <button class="link" data-open-chat>Chiedi informazioni</button>
+          </article>
+          <article class="card type-card">
+            <h3>Consolidamento Debiti</h3>
+            <p class="type-rate"><strong>Una sola</strong> rata</p>
+            <p>Riunisci finanziamenti e rate in corso in un unico prestito, con una rata più leggera e una sola scadenza.</p>
+            <button class="link" data-open-chat>Chiedi informazioni</button>
+          </article>
+          <article class="card type-card">
+            <span class="tag tag-teal">Correntisti</span>
+            <h3>Prestito Flash</h3>
+            <p class="type-rate">Fino a <strong>5.000 €</strong> in 24 ore</p>
+            <p>Per gli imprevisti: richiesta interamente dall'app e accredito sul conto entro un giorno lavorativo.</p>
+            <button class="link" data-open-chat>Chiedi informazioni</button>
+          </article>
+        </div>
+        <p class="result-note">Esempi dimostrativi con tassi di fantasia. La concessione del prestito è soggetta a valutazione.</p>
+      </div>
+    </section>
+
+    <section class="section section-dark">
+      <div class="container">
+        <p class="eyebrow eyebrow-light">Come funziona</p>
+        <h2>Dalla richiesta all'accredito, senza perdere tempo</h2>
+        <ol class="steps">
+          <li>
+            <span class="step-number">1</span>
+            <h3>Scegli importo e durata</h3>
+            <p>Calcola la rata più adatta a te e ricevi subito un preventivo personalizzato.</p>
+          </li>
+          <li>
+            <span class="step-number">2</span>
+            <h3>Carica i documenti</h3>
+            <p>Documento d'identità e ultima busta paga: puoi caricarli direttamente dall'app.</p>
+          </li>
+          <li>
+            <span class="step-number">3</span>
+            <h3>Ricevi l'esito</h3>
+            <p>Per i correntisti l'esito arriva in 24 ore e il denaro direttamente sul conto.</p>
+          </li>
+        </ol>
+        <button class="btn btn-primary" data-open-chat>Richiedi un preventivo</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span class="brand-name">Genesys <strong>Banca</strong></span>
+      <p>Sito dimostrativo realizzato con Genesys Cloud. Genesys Banca è un marchio di fantasia: prodotti, tassi e condizioni non sono reali.</p>
+    </div>
+  </footer>
+</body>
+</html>

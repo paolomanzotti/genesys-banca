@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Conti correnti | Genesys Banca</title>
+  <meta name="description" content="Il conto Genesys Banca per ogni esigenza: online, giovani, premium, business, deposito e famiglia.">
+  <link rel="icon" type="image/png" href="app/icons/icon-192.png">
+  <link rel="apple-touch-icon" href="app/icons/apple-touch-icon.png">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Genesys Banca">
+  <meta property="og:title" content="Conti correnti | Genesys Banca">
+  <meta property="og:description" content="Il conto Genesys Banca per ogni esigenza: online, giovani, premium, business, deposito e famiglia.">
+  <meta property="og:url" content="https://paolomanzotti.github.io/genesys-banca/conti.html">
+  <meta property="og:image" content="https://paolomanzotti.github.io/genesys-banca/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=13">
+  <script src="app.js?v=8"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-name">Genesys <strong>Banca</strong></span>
+      </a>
+      <nav class="nav">
+        <a href="conti.html" class="active">Conti</a>
+        <a href="carte.html">Carte</a>
+        <a href="prestiti.html">Prestiti</a>
+        <a href="mutui.html">Mutui</a>
+        <a href="index.html#assistenza">Assistenza</a>
+      </nav>
+      <div class="account" data-logged-out>
+        <button class="btn btn-ghost btn-small" data-open-login>Area clienti</button>
+      </div>
+      <div class="account" data-logged-in hidden>
+        <span class="greeting">Ciao, <strong data-customer-first-name></strong></span>
+        <button class="link link-plain" data-logout>Esci</button>
+      </div>
+      <button class="btn btn-primary btn-small" data-open-chat>Parla con noi</button>
+    </div>
+  </header>
+
+  <div class="modal" data-login-modal hidden>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="login-title">
+      <button class="modal-close" data-close-login aria-label="Chiudi">×</button>
+      <p class="eyebrow">Area clienti</p>
+      <h2 id="login-title">Accedi al tuo profilo</h2>
+      <p class="modal-text">Sito dimostrativo: scegli il cliente demo con cui accedere.</p>
+      <button class="customer" data-login>
+        <span class="customer-avatar">MB</span>
+        <span class="customer-info">
+          <strong>Marco Bianchi</strong>
+          <span>Correntista dal 2019 · Filiale Milano Porta Romana</span>
+        </span>
+        <span class="customer-go">Accedi →</span>
+      </button>
+    </div>
+  </div>
+
+  <main>
+    <section class="hero hero-small">
+      <div class="container">
+        <p class="eyebrow">Conti correnti</p>
+        <h1>Il conto che <span class="accent">ti somiglia</span></h1>
+        <p class="lead">Dal primo conto al conto per la tua attività: tutto gestibile dall'app, con bonifici istantanei e un consulente quando ti serve.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#prodotti">Scopri le soluzioni</a>
+          <button class="btn btn-ghost" data-open-chat>Parla con un consulente</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="prodotti">
+      <div class="container">
+        <p class="eyebrow">Le nostre soluzioni</p>
+        <h2>Scegli il conto più adatto a te</h2>
+        <div class="types">
+          <article class="card type-card">
+            <h3>Conto Genesys</h3>
+            <p class="type-rate">Canone <strong>0 €</strong> il primo anno</p>
+            <p>Il conto online per la vita di tutti i giorni: carta di debito, bonifici istantanei e domiciliazioni inclusi. Poi 3 € al mese.</p>
+            <button class="link" data-open-chat>Chiedi informazioni</button>
+          </article>
+          <article class="card type-card">
+            <span class="tag">Under 30</span>
+            <h3>Conto Giovani</h3>
+            <p class="type-rate">Canone <strong>0 €</strong> fino a 30 anni</p>
+            <p>Carta di debito con cashback, bonifici istantanei gratuiti e risparmio automatico con l'arrotondamento delle spese.</p>
+            <button class="link" data-open-chat>Chiedi informazioni</button>
+          </article>
+          <article class="card type-card">
+            <h3>Conto Premium</h3>
+            <p class="type-rate"><strong>12 €</strong> al mese</p>
+            <p>Carta di credito Oro inclusa, consulente dedicato, assicurazione viaggi e prelievi gratuiti in tutto il mondo.</p>
+            <button class="link" data-open-chat>Chiedi informazioni</button>
+          </article>
+          <article class="card type-card">
+            <span class="tag tag-teal">Partita IVA</span>
+            <h3>Conto Business</h3>
+            <p class="type-rate"><strong>8 €</strong> al mese</p>
+            <p>Per professionisti e piccole imprese: F24, POS e fatturazione elettronica collegati, con più carte per i collaboratori.</p>
+            <button class="link" data-open-chat>Chiedi informazioni</button>
+          </article>
+          <article class="card type-card">
+            <span class="tag tag-teal">Risparmio</span>
+            <h3>Conto Deposito</h3>
+            <p class="type-rate">Fino al <strong>3,00%</strong> lordo annuo</p>
+            <p>Fai crescere i tuoi risparmi con somme vincolate da 6 a 24 mesi, senza spese di apertura né di gestione.</p>
+            <button class="link" data-open-chat>Chiedi informazioni</button>
+          </article>
+          <article class="card type-card">
+            <h3>Conto Famiglia</h3>
+            <p class="type-rate"><strong>5 €</strong> al mese</p>
+            <p>Conto cointestato con una carta per ciascuno, spese condivise e una carta prepagata per i figli gestita dall'app.</p>
+            <button class="link" data-open-chat>Chiedi informazioni</button>
+          </article>
+        </div>
+        <p class="result-note">Condizioni dimostrative e di fantasia.</p>
+      </div>
+    </section>
+
+    <section class="section section-dark">
+      <div class="container">
+        <p class="eyebrow eyebrow-light">Come funziona</p>
+        <h2>Il tuo nuovo conto, attivo in pochi minuti</h2>
+        <ol class="steps">
+          <li>
+            <span class="step-number">1</span>
+            <h3>Apri online</h3>
+            <p>In 10 minuti dall'app o dal sito, con il riconoscimento via selfie e documento.</p>
+          </li>
+          <li>
+            <span class="step-number">2</span>
+            <h3>Ricevi IBAN e carta</h3>
+            <p>IBAN subito disponibile e carta virtuale pronta da aggiungere al tuo smartphone.</p>
+          </li>
+          <li>
+            <span class="step-number">3</span>
+            <h3>Gestisci tutto dall'app</h3>
+            <p>Bonifici, pagamenti, notifiche in tempo reale e un consulente in chat quando vuoi.</p>
+          </li>
+        </ol>
+        <button class="btn btn-primary" data-open-chat>Apri il tuo conto</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span class="brand-name">Genesys <strong>Banca</strong></span>
+      <p>Sito dimostrativo realizzato con Genesys Cloud. Genesys Banca è un marchio di fantasia: prodotti, tassi e condizioni non sono reali.</p>
+    </div>
+  </footer>
+</body>
+</html>

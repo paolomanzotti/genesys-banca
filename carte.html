@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Carte di debito e credito | Genesys Banca</title>
+  <meta name="description" content="Carte di debito e di credito Genesys Banca: contactless, pagamenti con smartphone e controllo di ogni spesa dall&#x27;app.">
+  <link rel="icon" type="image/png" href="app/icons/icon-192.png">
+  <link rel="apple-touch-icon" href="app/icons/apple-touch-icon.png">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Genesys Banca">
+  <meta property="og:title" content="Carte | Genesys Banca">
+  <meta property="og:description" content="Carte di debito e di credito Genesys Banca: contactless, pagamenti con smartphone e controllo di ogni spesa dall&#x27;app.">
+  <meta property="og:url" content="https://paolomanzotti.github.io/genesys-banca/carte.html">
+  <meta property="og:image" content="https://paolomanzotti.github.io/genesys-banca/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=13">
+  <script src="app.js?v=8"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-name">Genesys <strong>Banca</strong></span>
+      </a>
+      <nav class="nav">
+        <a href="conti.html">Conti</a>
+        <a href="carte.html" class="active">Carte</a>
+        <a href="prestiti.html">Prestiti</a>
+        <a href="mutui.html">Mutui</a>
+        <a href="index.html#assistenza">Assistenza</a>
+      </nav>
+      <div class="account" data-logged-out>
+        <button class="btn btn-ghost btn-small" data-open-login>Area clienti</button>
+      </div>
+      <div class="account" data-logged-in hidden>
+        <span class="greeting">Ciao, <strong data-customer-first-name></strong></span>
+        <button class="link link-plain" data-logout>Esci</button>
+      </div>
+      <button class="btn btn-primary btn-small" data-open-chat>Parla con noi</button>
+    </div>
+  </header>
+
+  <div class="modal" data-login-modal hidden>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="login-title">
+      <button class="modal-close" data-close-login aria-label="Chiudi">×</button>
+      <p class="eyebrow">Area clienti</p>
+      <h2 id="login-title">Accedi al tuo profilo</h2>
+      <p class="modal-text">Sito dimostrativo: scegli il cliente demo con cui accedere.</p>
+      <button class="customer" data-login>
+        <span class="customer-avatar">MB</span>
+        <span class="customer-info">
+          <strong>Marco Bianchi</strong>
+          <span>Correntista dal 2019 · Filiale Milano Porta Romana</span>
+        </span>
+        <span class="customer-go">Accedi →</span>
+      </button>
+    </div>
+  </div>
+
+  <main>
+    <section class="hero hero-small">
+      <div class="container">
+        <p class="eyebrow">Carte</p>
+        <h1>La carta giusta per <span class="accent">ogni pagamento</span></h1>
+        <p class="lead">Carte di debito e di credito con pagamenti da smartphone e smartwatch, notifiche in tempo reale e blocco immediato dall'app.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#prodotti">Scopri le soluzioni</a>
+          <button class="btn btn-ghost" data-open-chat>Parla con un consulente</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="prodotti">
+      <div class="container">
+        <p class="eyebrow">Le nostre soluzioni</p>
+        <h2>Carte di debito e di credito</h2>
+        <div class="types">
+          <article class="card type-card">
+            <span class="tag">Debito</span>
+            <h3>Carta di Debito Classic</h3>
+            <p class="type-rate"><strong>Inclusa</strong> nel conto</p>
+            <p>Paga in negozio e online, preleva gratis in Italia e aggiungila ad Apple Pay e Google Pay.</p>
+            <button class="link" data-open-chat>Chiedi informazioni</button>
+          </article>
+          <article class="card type-card">
+            <span class="tag">Debito</span>
+            <h3>Carta di Debito Giovani</h3>
+            <p class="type-rate"><strong>2%</strong> di cashback</p>
+            <p>Per chi ha meno di 30 anni: cashback sugli acquisti online e limiti di spesa che imposti tu dall'app.</p>
+            <button class="link" data-open-chat>Chiedi informazioni</button>
+          </article>
+          <article class="card type-card">
+            <span class="tag">Debito</span>
+            <h3>Carta di Debito World</h3>
+            <p class="type-rate">Prelievi gratis <strong>nel mondo</strong></p>
+            <p>Nessuna commissione sui pagamenti in valuta estera e prelievi gratuiti in tutti i Paesi: ideale per chi viaggia.</p>
+            <button class="link" data-open-chat>Chiedi informazioni</button>
+          </article>
+          <article class="card type-card">
+            <span class="tag tag-teal">Credito</span>
+            <h3>Carta di Credito Classic</h3>
+            <p class="type-rate"><strong>0 €</strong> il primo anno</p>
+            <p>Plafond fino a 3.000 €, addebito delle spese il mese successivo e protezione sugli acquisti online.</p>
+            <button class="link" data-open-chat>Chiedi informazioni</button>
+          </article>
+          <article class="card type-card">
+            <span class="tag tag-teal">Credito</span>
+            <h3>Carta di Credito Oro</h3>
+            <p class="type-rate">Plafond fino a <strong>10.000 €</strong></p>
+            <p>Assicurazione viaggi e annullamento, accesso alle lounge aeroportuali e un servizio clienti dedicato.</p>
+            <button class="link" data-open-chat>Chiedi informazioni</button>
+          </article>
+          <article class="card type-card">
+            <span class="tag tag-teal">Credito</span>
+            <h3>Carta di Credito Flex</h3>
+            <p class="type-rate">Rate da <strong>9,90%</strong> TAN</p>
+            <p>Scegli tu se pagare a saldo o a rate, anche dopo l'acquisto, e cambia la rata quando vuoi dall'app.</p>
+            <button class="link" data-open-chat>Chiedi informazioni</button>
+          </article>
+        </div>
+        <p class="result-note">Condizioni dimostrative e di fantasia. La concessione delle carte di credito è soggetta a valutazione.</p>
+      </div>
+    </section>
+
+    <section class="section section-dark">
+      <div class="container">
+        <p class="eyebrow eyebrow-light">Come funziona</p>
+        <h2>Dalla richiesta al primo pagamento in pochi minuti</h2>
+        <ol class="steps">
+          <li>
+            <span class="step-number">1</span>
+            <h3>Richiedila dall'app</h3>
+            <p>Scegli la carta e completa la richiesta in pochi passaggi, senza andare in filiale.</p>
+          </li>
+          <li>
+            <span class="step-number">2</span>
+            <h3>Paga subito con lo smartphone</h3>
+            <p>La carta virtuale è attiva immediatamente; quella fisica arriva a casa in pochi giorni.</p>
+          </li>
+          <li>
+            <span class="step-number">3</span>
+            <h3>Controlla ogni spesa</h3>
+            <p>Notifiche in tempo reale, limiti personalizzabili e blocco immediato in caso di smarrimento.</p>
+          </li>
+        </ol>
+        <button class="btn btn-primary" data-open-chat>Richiedi la tua carta</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span class="brand-name">Genesys <strong>Banca</strong></span>
+      <p>Sito dimostrativo realizzato con Genesys Cloud. Genesys Banca è un marchio di fantasia: prodotti, tassi e condizioni non sono reali.</p>
+    </div>
+  </footer>
+</body>
+</html>
